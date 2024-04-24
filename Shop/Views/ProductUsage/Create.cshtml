@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Create ProductUsage";
+}
+
+@model Shop.Models.ProductUsage
+
+<h2>Создать использование продукта</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="POST" asp-action="Create">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-info">Вернуться к списку</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    @{<partial name="_ValidationScriptsPartial"/>}
+}

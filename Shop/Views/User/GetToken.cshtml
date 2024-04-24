@@ -1,0 +1,9 @@
+﻿@using Microsoft.Extensions.Caching.Memory;
+@inject IMemoryCache _memoryCache
+
+@model string
+
+<div>
+    <h3>Your TOKEN:</h3>
+    <textarea rows="10" cols="50">@_memoryCache.Get("JwtToken")</textarea>
+</div>

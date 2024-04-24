@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Create User";
+}
+
+@model Shop.Models.ViewModels.UserVM
+
+<h1>Создать пользователя</h1>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mt-2">
+                <label asp-for="ShopUser.FullName" class="control-label"></label>
+                <input asp-for="ShopUser.FullName" class="form-control" />
+                <span asp-validation-for="ShopUser.FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <label asp-for="ShopUser.Email" class="control-label"></label>
+                <input asp-for="ShopUser.Email" class="form-control" />
+                <span asp-validation-for="ShopUser.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <label asp-for="ShopUser.AddressDelivery" class="control-label"></label>
+                <input asp-for="ShopUser.AddressDelivery" class="form-control" />
+                <span asp-validation-for="ShopUser.AddressDelivery" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <label asp-for="Role" class="control-label"></label>
+                <select asp-for="Role" class ="form-control" asp-items="Model.Roles">
+                    <option disabled selected>Выберите роль</option>
+                </select>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-success" />
+                <a asp-action="Index" class="btn btn-info">К списку пользователей</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    @{<partial name="_ValidationScriptsPartial"/>}
+}

@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Edit order";
+}
+
+@model Shop.Models.Order
+
+<h3>Редактирование товара в заказе</h3>
+<hr />
+<div class="row justify-content-center">
+    <div class="text-center">
+        <img src=@WC.ImagePath@Model.Product.Image alt="Image" class="border border-secondary rounded-2" style="object-fit:cover; width: 110px; height: 110px;">
+    </div>
+    <div class="col-md-4">
+        <form method="POST" asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group mb-2">
+                <label class="control-label">User ID</label>
+                <input asp-for="ShopUser.Id" class="form-control" readonly />
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="ShopUser.AddressDelivery" class="control-label"></label>
+                <input asp-for="ShopUser.AddressDelivery" class="form-control" readonly />
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="Product.Name" class="control-label"></label>
+                <input asp-for="Product.Name" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.Price" class="control-label"></label>
+                <input asp-for="Product.Price" class="form-control" readonly />
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="GetAllOrders" class="btn btn-info">К списку заказов</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{<partial name="_ValidationScriptsPartial" />}
+}

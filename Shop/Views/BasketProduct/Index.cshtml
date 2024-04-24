@@ -1,0 +1,70 @@
+﻿@{
+    ViewData["Title"] = "Корзина продуктов";
+}
+
+@model List<Shop.Models.Product>
+
+<div class="row">
+    <h3 class="text-center mb-3">Корзина товаров</h3>
+
+    @if (ViewBag.UsedEmail is not null)
+    {
+        <div class="alert alert-primary" role="alert">
+            <strong>This email already exists</strong>
+        </div>
+    }
+
+    @if (Model is not null && Model.Count > 0)
+    {
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead class="table-dark">
+                <tr class="text-center">
+                    <th>#</th>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Short desc</th>
+                    <th>Category</th>
+                    <th>Usage</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int i = 1; }
+                @foreach (var prod in Model)
+                {
+                    <tr>
+                        <td>@i</td>
+                        <td>
+                            <div>
+                                <img src=@WC.ImagePath@prod.Image alt="Image" class="border border-secondary rounded-2" style="object-fit:cover; width: 110px; height: 110px;">
+                            </div>
+                        </td>
+                        <td width="35%">@prod.Name</td>
+                        <td width="20%">@prod.Price</td>
+                        <td width="40%">@prod.ShortDesc</td>
+                        <td>@prod.Category.Name</td>
+                        <td>@prod.ProductUsage.Name</td>
+                        <td class="text-center">
+                            <div class="w-100 btn-group" role="group">
+                                <a asp-controller="BasketProduct" asp-action="Delete" asp-route-id="@prod.Id" class="btn btn-danger mx-2">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                    i++;
+                }
+            </tbody>
+        </table>
+
+        <div id="sendEmail" class="text-center">
+            <form method="POST" asp-controller="BasketProduct" asp-action="SendOrder">
+                <input type="hidden" name="productsIdJson" value="@Json.Serialize(Model.Select(item => item.Id).ToList())"/>
+                <button type="submit" class="btn btn-success">Send an order</button>
+            </form>
+        </div>
+    }
+    else
+    {
+        <h2>Empty</h2>
+    }
+</div>

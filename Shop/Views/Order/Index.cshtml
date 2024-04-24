@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "Список заказов";
+}
+
+@model IEnumerable<Shop.Models.Order>
+
+@if (ViewBag.ErrorMess is not null)
+{
+    <div class="alert alert-danger" role="alert">
+        <p>@ViewBag.ErrorMess</p>
+    </div>
+}
+else
+{
+    var groupOrdersByDate = Model.GroupBy(o => o.CreatedDate).Reverse();
+    foreach (var group in groupOrdersByDate)
+    {
+        <h4 class="text-center mb-3">@group.Key</h4>
+
+        <table class="table table-bordered table-striped" style="width:100%">
+                <thead class="table-dark">
+                    <tr class="text-center">
+                        <th>#</th>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ int i = 1; }
+                    @foreach (var order in group)
+                    {
+                        <tr>
+                            <td>@i</td>
+                            <td>
+                                <div class="text-center">
+                                    <img src=@WC.ImagePath@order.Product.Image alt="Image" class="border border-secondary rounded-2" style="object-fit:cover; width: 110px; height: 110px;">
+                                </div>
+                            </td>
+                            <td width="35%">@order.Product.Name</td>
+                            <td width="20%">@order.Product.Price</td>
+                            <td>@order.Product.Category.Name</td>
+                        </tr>
+                        i++;
+                    }
+                </tbody>
+        </table>
+
+        <div class="d-flex justify-content-end bd-highlight">
+            <h5 class="fst-italic">
+                Total:
+                <span class="fst-italic text-decoration-underline">
+                    @group.Sum(o => o.Product.Price) ₴
+                </span>
+            </h5>
+        </div>
+        <hr/>
+    }
+}

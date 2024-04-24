@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Edit User";
+}
+
+@model Shop.Models.ViewModels.UserVM
+
+<h1>Изменить пользователя</h1>
+<hr />
+<div class="row">
+    <div class="alert alert-danger d-none" role="alert">
+        <p>Хорошего дня!</p>
+    </div>
+
+    <div class="col-md-10">
+        <form id="editForm" method="POST" asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ShopUser.Id" />
+
+            <div class="form-group mt-2">
+                <label asp-for="ShopUser.FullName" class="control-label"></label>
+                <input asp-for="ShopUser.FullName" class="form-control" />
+                <span asp-validation-for="ShopUser.FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <label asp-for="ShopUser.Email" class="control-label"></label>
+                <input id="email" asp-for="ShopUser.Email" class="form-control"/>
+                <span asp-validation-for="ShopUser.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <label asp-for="Password" class="control-label"></label>
+                <input id="password" asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <label asp-for="ShopUser.AddressDelivery" class="control-label"></label>
+                <input asp-for="ShopUser.AddressDelivery" class="form-control" />
+                <span asp-validation-for="ShopUser.AddressDelivery" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <label asp-for="Role" class="control-label"></label>
+                <select asp-for="Role" class ="form-control" asp-items="Model.Roles">
+                    <option disabled selected>Выберите роль</option>
+                </select>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-success" />
+                <a asp-action="Index" class="btn btn-info">К списку пользователей</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{<partial name="_ValidationScriptsPartial" />}
+    <script>
+        $(document).ready(function() {
+            $("#editForm").submit(function(event) {
+                const emailInput = $("#email").val();
+                const passwordInput = $("#password").val();
+                const alert = $(".alert");
+                const alertMess = $(".alert p");
+
+                // имя(логин) пользователя
+                const originalUserName = "@Model.ShopUser.UserName";
+                
+                // если email отличается от UserName(значит он его поменял) и поле пароля пустое
+                if (emailInput !== originalUserName && !passwordInput) {
+                    event.preventDefault(); // остановка отправки формы
+
+                    // вывод сообщения
+                    alertMess.text("Для изменения email(логина) пользователя требуется указать новый пароль");
+                    alert.removeClass("d-none");
+                    setTimeout(() => alert.addClass("d-none"), 3000);
+                }
+            });
+        });
+    </script>
+}

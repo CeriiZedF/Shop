@@ -1,0 +1,61 @@
+﻿@{
+    ViewData["Title"] = "User";
+}
+@inject CurrentUserProvider _currentUserProvider
+@model List<Shop.Models.ViewModels.UserVM>
+
+
+<div class="row pt-4">
+    <div class="col-6">
+        <h2 class="text-primary">Список пользователей</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a asp-controller="User" asp-action="Create" class="btn btn-primary">Создать пользователя</a>
+    </div>
+</div>
+
+@*Генерация данных происходит с помощью DataTable в файле 'site.js'*@
+@if (Model.Count() > 0)
+{
+    <table id="usersTable" class="table table-bordered table-striped" style="width:100%">
+        <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Roles</th>
+                    <th>Full name</th>
+                    <th>Email</th>
+                    <th>Address delivery</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Name</th>
+                    <th>Roles</th>
+                    <th>Full name</th>
+                    <th>Email</th>
+                    <th>Address delivery</th>
+                </tr>
+           </tfoot>
+    </table>
+}
+
+@*<tbody>
+    @foreach (var user in Model) {
+        // если это не админ, то выводим
+        string? roles = await _currentUserProvider.GetUserRoles(user);
+        @if (!roles.Contains(WC.AdminRole))
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>@roles</td>
+                <td>@user.FullName</td>
+                <td>@user.Email</td>
+                <td>@user.AddressDelivery</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@user.Id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@user.Id">Delete</a>
+                </td>
+            </tr>
+            }
+        }
+</tbody>*@

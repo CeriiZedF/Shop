@@ -1,0 +1,49 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+  margin-top: 90px;
+}
+
+
+/* --- Preloader --- */
+.preloader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+}
+
+.preloader__image {
+    position: relative;
+    top: calc(50% - 35px);
+    left: calc(50% - 35px);
+    width: 70px;
+    height: 70px;
+    text-align: center;
+    animation: preloader-rotate 2s infinite;
+}
+
+@keyframes preloader-rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+/* ------------------ */

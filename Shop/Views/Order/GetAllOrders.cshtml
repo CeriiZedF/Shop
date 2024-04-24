@@ -1,0 +1,68 @@
+﻿@{
+    ViewData["Title"] = "Список всех заказов";
+}
+
+@model IEnumerable<Shop.Models.Order>
+
+@{
+    var groupOrdersByDate = Model.GroupBy(o => o.CreatedDate).Reverse();
+    foreach (var group in groupOrdersByDate)
+    {
+        <div>
+            <h5 class="text-center mb-3">
+                @group.Key
+            </h5>
+        </div>
+
+        <table class="table table-bordered table-striped" style="width:100%">
+                <thead class="table-dark">
+                    <tr class="text-center">
+                        <th>#</th>
+                        <th>User ID</th>
+                        <th>Address delivery</th>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ int i = 1; }
+                    @foreach (var order in group)
+                    {
+                        <tr>
+                            <td>@i</td>
+                            <td>@order.ShopUser.Id</td>
+                            <td>@order.ShopUser.AddressDelivery</td>
+                            <td>
+                                <div class="text-center">
+                                    <img src=@WC.ImagePath@order.Product.Image alt="Image" class="border border-secondary rounded-2" style="object-fit:cover; width: 110px; height: 110px;">
+                                </div>
+                            </td>
+                            <td width="35%">@order.Product.Name</td>
+                            <td width="20%">@order.Product.Price</td>
+                            <td>@order.Product.Category.Name</td>
+                            <td class="text-center">
+                                <div class="w-100 btn-group" role="group">
+                                    <a asp-controller="Order" asp-action="Edit" asp-route-id="@order.Id" class="btn btn-warning mx-2">Edit</a>
+                                    <a asp-controller="Order" asp-action="Delete" asp-route-id="@order.Id" class="btn btn-danger mx-2">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                        i++;
+                    }
+                </tbody>
+        </table>
+
+        <div class="d-flex justify-content-end bd-highlight">
+            <h5 class="fst-italic">
+                Total:
+                <span class="fst-italic text-decoration-underline">
+                    @group.Sum(o => o.Product.Price) ₴
+                </span>
+            </h5>
+        </div>
+        <hr/>
+    }
+}
