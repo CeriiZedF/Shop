@@ -13,7 +13,7 @@ namespace Shop.DAL.Repository
     public class UserRepository : IUserRepository
     {
         private readonly DataContext _db;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<IdentityUser> _userManager ;
         internal DbSet<ShopUser> dbSet;
 
         public UserRepository(
