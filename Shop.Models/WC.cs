@@ -11,7 +11,7 @@
         public const string AdminManagerPolicy = "AdminManager";
         public const string AdminPolicy = "Admin";
 
-        public const string NameUserAdmin = "dansob@gmail.com";
-        public const string NameUserManager = "danman@gmail.com";
+        public const string NameUserAdmin = "balan@gmail.com";
+        public const string NameUserManager = "balan@gmail.com";
     }
 }

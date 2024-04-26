@@ -38,7 +38,7 @@ namespace Shop.Services
         {
             if (user is null) { return null; }
 
-            string roles = "";
+            string roles = "Admin";
             foreach (var role in await _userManager.GetRolesAsync(user))
             {
                 roles += $"{role} ";

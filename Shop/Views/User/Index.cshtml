@@ -39,23 +39,3 @@
     </table>
 }
 
-@*<tbody>
-    @foreach (var user in Model) {
-        // если это не админ, то выводим
-        string? roles = await _currentUserProvider.GetUserRoles(user);
-        @if (!roles.Contains(WC.AdminRole))
-        {
-            <tr>
-                <td>@user.UserName</td>
-                <td>@roles</td>
-                <td>@user.FullName</td>
-                <td>@user.Email</td>
-                <td>@user.AddressDelivery</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@user.Id">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@user.Id">Delete</a>
-                </td>
-            </tr>
-            }
-        }
-</tbody>*@
